@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio de Naelle Mezghenna</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Header Sticky -->
+  <header class="header" id="header">
+    <div class="container header__container">
+      <nav class="header__nav" id="nav">
+        <ul class="header__menu">
+          <li><a href="#presentation">Présentation</a></li>
+          <li><a href="#bts">BTS SIO</a></li>
+          <li><a href="#entreprise">Entreprise</a></li>
+          <li><a href="#e5">E5</a></li>
+          <li><a href="#e6">E6</a></li>
+          <li><a href="#veille">Veille</a></li>
+        </ul>
+        <button class="header__burger" id="burger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main style="margin-left:10vw;">
+  <!-- Hero / Présentation -->
+  <section class="section hero" id="presentation">
+    <div class="container hero__container">
+      <div class="hero__image">
+        <img src="assets/img/1746305459056.jpg" alt="Portrait de Naelle Mezghenna" class="section-img-uniform">
+      </div>
+      <div class="hero__content">
+        <h1>Naelle Mezghenna</h1>
+        <h2>Étudiante en réseaux</h2>
+        <p>Passionnée par l’informatique et les réseaux, je poursuis mes études en BTS SIO option SISR afin de développer mes compétences techniques et humaines. Rigoureuse, curieuse et motivée, je souhaite évoluer dans un environnement stimulant et contribuer à la transformation numérique des entreprises.</p>
+              <div class="hero__actions">
+                 <a href="https://www.linkedin.com/in/naelle-mezghenna-12046429b/" target="_blank" class="btn hero__btn">LinkedIn</a>
+                 <a href="assets/Alternance Naelle Cv.pdf" target="_blank" class="btn hero__btn">CV</a>
+              </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section BTS SIO -->
+  <section class="section" id="bts">
+    <div class="container bts__container" style="display: flex; align-items: center; flex-wrap: wrap; justify-content: space-between;">
+      <div class="bts__image" style="flex: 1 1 40%; display: flex; ">
+        <img src="assets/img/efrei.jpg" alt="Logo EFREI" class="section-img-uniform">
+      </div>
+      <div class="bts__content" style="flex: 1 1 60%;">
+        <h1>BTS SIO</h1>
+        <p>Le Brevet de Technicien Supérieur aux Services Informatiques aux Organisations (BTS SIO) est un programme de niveau Bac+2 s'adresse aux personnes qui souhaitent se former en deux ans aux métiers d'administrateur réseau ou de développeur.<br>
+       </p>
+        <h2>Option SISR</h2>
+        <p>Cette spécialité vous formera sur la gestion, la maintenance des infrastructures réseau. Vous apprendrez à gérer des systèmes d'exploitation, des services réseaux, mais aussi à sécuriser une infrastructure et à proposer des solutions pour optimiser la performance d'un réseau.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Entreprise -->
+  <section class="section" id="entreprise">
+    <div class="container entreprise__container" style="display: flex; align-items: center; flex-wrap: wrap; justify-content: space-between;">
+      <div class="entreprise__image" style="flex: 1 1 40%; display: flex; ">
+        <img src="assets/img/BNP-Paribas-vignette.jpg" alt="BNP Paribas" class="section-img-uniform">
+      </div>
+      <div class="entreprise__content" style="flex: 1 1 60%;">
+        <h1>Entreprise</h1>
+        <h2>BNP Paribas</h2>
+        <p>Au sein de BNP Paribas, j’ai eu l’opportunité de découvrir le fonctionnement d’un grand groupe bancaire international. Cette expérience m’a permis de développer mon sens de l’organisation, d’approfondir mes connaissances en gestion de réseaux et de participer à des projets concrets en équipe.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Epreuve E5 -->
+  <section class="section" id="e5">
+    <div class="container e5__container">
+      <h1>Epreuve E5</h1>
+      <h2>Tableau de synthèse</h2>
+      <div style="margin:2rem 0;max-width:100%;overflow:auto;">
+        <img src="assets/Tableau de synthese (E6).jpg" alt="Tableau de compétences" style="max-width:100%;height:auto;display:block;margin:0 auto;box-shadow:0 2px 12px 0 rgba(91,110,225,0.10);background:#fff;border-radius:12px;">
+      </div>
+      <div class="e5__buttons">
+        <button>Bloc 1 : Gérer le patrimoine informatique</button>
+        <button>Bloc 2 : Répondre aux incidents et aux demandes d'assistance et d'évolution</button>
+        <button>Bloc 3 : Développer la présence en ligne de l'organisation</button>
+        <button>Bloc 4 : Travailler en mode projet</button>
+        <button>Bloc 5 : Mettre à disposition des utilisateurs un service informatique</button>
+        <button>Bloc 6 : Organiser son développement professionnel</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Epreuve E6 -->
+  <section class="section" id="e6">
+    <div class="container e6__container">
+      <h1>Epreuve E6</h1>
+      <div class="e6__cards">
+        <div class="e6__card">
+          <h2>Active Directory</h2>
+          <p>Projet d’administration et de gestion des utilisateurs via Active Directory, permettant la centralisation et la sécurisation des accès au sein de l’entreprise.</p>
+          <a href="#" class="btn">Documentation</a>
+                  <img src="assets/img/activedirectorylogo.png" alt="Active Directory">
+        </div>
+        <div class="e6__card">
+          <h2>GLPI</h2>
+          <p>Déploiement et gestion d’un outil de gestion de parc informatique avec GLPI, facilitant le suivi, la maintenance et l’inventaire des équipements.</p>
+          <a href="#" class="btn">Documentation</a>
+                  <img src="assets/img/GLPI_Logo-color.webp" alt="GLPI">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Veille technologique -->
+  <section class="section" id="veille">
+    <div class="container hero__container" style="display: flex; align-items: center; flex-wrap: wrap; justify-content: space-between;">
+      <div class="veille__content" style="flex: 1 1 60%;">
+        <h1>Veille technologique</h1>
+
+    </div>
+  </section>
+</body>
+</html>
