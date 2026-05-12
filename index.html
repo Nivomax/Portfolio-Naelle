@@ -1,0 +1,2135 @@
+<!doctype html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Portfolio — Accueil" />
+  <title>Portfolio — Accueil</title>
+
+  <style>
+    :root{
+      --bg0:#F6F8FF;
+      --bg1:#EEF2FF;
+      --stroke: rgba(20,28,60,.10);
+      --stroke2: rgba(20,28,60,.14);
+
+      --text:#0B1020;
+      --muted: rgba(11,16,32,.72);
+      --muted2: rgba(11,16,32,.55);
+
+      --shadow: 0 18px 60px rgba(16,24,40,.12);
+      --shadow2: 0 10px 30px rgba(16,24,40,.10);
+
+      --accent:#6D5CFF;
+      --accent2:#1F8CFF;
+
+      --r14:14px;
+      --r20:20px;
+      --max:1100px;
+
+      --ease:cubic-bezier(.2,.8,.2,1);
+      --dur:240ms;
+
+      --ring: 0 0 0 3px rgba(109,92,255,.22), 0 0 0 1px rgba(109,92,255,.28) inset;
+
+      /* ✅ largeur de bande pilotée en JS (s'adapte au menu, une seule ligne) */
+      --sidePx: 320px;
+      --sideMin: 285px;
+      --sideMax: 520px;
+
+      --btnBg: rgba(255,255,255,.70);
+      --btnBgHover: rgba(255,255,255,.92);
+      --panelBgA: rgba(246,248,255,.86);
+      --panelBgB: rgba(246,248,255,.62);
+
+      --iconColor: rgba(11,16,32,.92);
+      --moonColor: rgba(11,16,32,.92);
+
+      --fieldBg: rgba(255,255,255,.62);
+      --fieldBgFocus: rgba(255,255,255,.82);
+      --fieldText: rgba(11,16,32,.92);
+      --placeholder: rgba(11,16,32,.55);
+    }
+
+    html[data-theme="dark"]{
+      --bg0:#0B0F1E;
+      --bg1:#070A14;
+
+      --stroke: rgba(255,255,255,.10);
+      --stroke2: rgba(255,255,255,.16);
+
+      --text:#F3F5FF;
+      --muted: rgba(243,245,255,.78);
+      --muted2: rgba(243,245,255,.58);
+
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --shadow2: 0 10px 30px rgba(0,0,0,.40);
+
+      --btnBg: rgba(18,22,40,.70);
+      --btnBgHover: rgba(18,22,40,.92);
+
+      --panelBgA: rgba(10,14,28,.86);
+      --panelBgB: rgba(10,14,28,.62);
+
+      --iconColor: rgba(243,245,255,.92);
+      --moonColor: rgba(255,255,255,.98);
+
+      --fieldBg: rgba(18,22,40,.62);
+      --fieldBgFocus: rgba(18,22,40,.86);
+      --fieldText: rgba(243,245,255,.92);
+      --placeholder: rgba(243,245,255,.55);
+    }
+
+    *,*::before,*::after{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "SF Pro Display", "SF Pro Text",
+                   "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+
+      color:var(--text);
+      background:
+        radial-gradient(1100px 700px at 10% 0%, rgba(109,92,255,.14), transparent 58%),
+        radial-gradient(900px 520px at 90% 10%, rgba(31,140,255,.12), transparent 62%),
+        radial-gradient(900px 650px at 50% 100%, rgba(109,92,255,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      min-height:100svh;
+      overflow-x:hidden;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    p{ margin:0 0 1rem; }
+    h1,h2,h3{ margin:0 0 .75rem; line-height:1.15; letter-spacing:-.02em; }
+
+    /* ✅ bouton maison en haut à gauche */
+    .home-fab{
+      position:fixed;
+      top: 16px;
+      left: 16px;
+      z-index: 90;
+      width: 46px;
+      height: 46px;
+      border-radius:999px;
+      display:grid;
+      place-items:center;
+      border:1px solid var(--stroke);
+      background: var(--btnBg);
+      box-shadow: 0 16px 44px rgba(16,24,40,.12);
+      transition: transform var(--dur) var(--ease),
+                  box-shadow var(--dur) var(--ease),
+                  border-color var(--dur) var(--ease),
+                  background var(--dur) var(--ease);
+      color: var(--iconColor);
+    }
+    .home-fab:hover{
+      transform: translateY(-2px);
+      border-color: rgba(109,92,255,.22);
+      background: var(--btnBgHover);
+      box-shadow: 0 18px 60px rgba(16,24,40,.14);
+    }
+    html[data-theme="dark"] .home-fab{ box-shadow: 0 16px 44px rgba(0,0,0,.45); }
+    html[data-theme="dark"] .home-fab:hover{ box-shadow: 0 18px 60px rgba(0,0,0,.55); }
+    .home-fab:focus-visible{ outline:none; box-shadow: var(--ring); }
+
+    /* ✅ back to top */
+    .to-top{
+      position:fixed;
+      right: 16px;
+      bottom: 16px;
+      z-index: 85;
+      width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      display:grid;
+      place-items:center;
+      border:1px solid var(--stroke);
+      background: var(--btnBg);
+      box-shadow: 0 16px 44px rgba(16,24,40,.12);
+      transition: transform var(--dur) var(--ease),
+                  box-shadow var(--dur) var(--ease),
+                  border-color var(--dur) var(--ease),
+                  background var(--dur) var(--ease),
+                  opacity var(--dur) var(--ease);
+      color: var(--iconColor);
+      opacity: 0;
+      pointer-events: none;
+    }
+    .to-top:hover{
+      transform: translateY(-2px);
+      border-color: rgba(109,92,255,.22);
+      background: var(--btnBgHover);
+      box-shadow: 0 18px 60px rgba(16,24,40,.14);
+    }
+    .to-top:focus-visible{ outline:none; box-shadow: var(--ring); }
+    html[data-theme="dark"] .to-top{ box-shadow: 0 16px 44px rgba(0,0,0,.45); }
+    html[data-theme="dark"] .to-top:hover{ box-shadow: 0 18px 60px rgba(0,0,0,.55); }
+
+    .to-top.is-visible{
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .layout{ position:relative; min-height:100svh; }
+
+    .content{
+      margin-right: 0;
+      min-height:100svh;
+      display:block;
+      align-items:stretch;
+    }
+    main{ width:100%; padding: 5rem 0 3rem; }
+
+    .container{
+      margin-inline:auto;
+      width: 80vw;
+    }
+
+    .top-nav{
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      z-index: 88;
+      display:flex;
+      align-items:center;
+      gap:.55rem;
+    }
+
+    section.section.container.reveal.is-visible {
+    padding-top: 0;
+}
+    /* ✅ menu toujours sur une seule ligne */
+    .nav-links{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:.25rem;
+      padding:.35rem .35rem;
+      border-radius:999px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.65);
+      box-shadow: 0 10px 26px rgba(16,24,40,.08);
+      flex-wrap:nowrap;
+      white-space:nowrap;
+      max-width:none;
+    }
+    html[data-theme="dark"] .nav-links{
+      background: rgba(18,22,40,.65);
+      box-shadow: 0 10px 26px rgba(0,0,0,.35);
+    }
+
+    .nav-link{
+      position:relative;
+      padding:.55rem .85rem;
+      border-radius:999px;
+      font-weight:650;
+      color: rgba(11,16,32,.76);
+      transition: background var(--dur) var(--ease), color var(--dur) var(--ease), transform var(--dur) var(--ease);
+      outline:none;
+    }
+    html[data-theme="dark"] .nav-link{ color: rgba(243,245,255,.74); }
+
+    .nav-link:hover{
+      background: rgba(109,92,255,.10);
+      color: rgba(11,16,32,.92);
+      transform: translateY(-1px);
+    }
+    html[data-theme="dark"] .nav-link:hover{
+      color: rgba(243,245,255,.92);
+      background: rgba(109,92,255,.14);
+    }
+
+    .nav-link:focus-visible{ box-shadow:var(--ring); }
+    .nav-link::after{
+      content:"";
+      position:absolute;
+      left:18px; right:18px; bottom:8px;
+      height:2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius:999px;
+      transform: scaleX(0);
+      transform-origin:left;
+      transition: transform 260ms var(--ease);
+      opacity:.9;
+    }
+    .nav-link:hover::after{ transform:scaleX(1); }
+    .nav-link.is-active{
+      background: rgba(109,92,255,.12);
+      color: var(--text);
+      box-shadow: 0 0 0 1px rgba(109,92,255,.18) inset;
+    }
+    .nav-link.is-active::after{ transform:scaleX(1); }
+
+    .icon{
+      width:22px;
+      height:22px;
+      display:block;
+      color: currentColor;
+    }
+
+    /* ✅ bouton mode nuit */
+    .theme-fab{
+      position: static;
+      width: 46px;
+      height: 46px;
+      padding:0;
+      border-radius:999px;
+      display:grid;
+      place-items:center;
+      border:1px solid var(--stroke);
+      background: var(--btnBg);
+      box-shadow: 0 16px 44px rgba(16,24,40,.12);
+      transition: transform var(--dur) var(--ease),
+                  box-shadow var(--dur) var(--ease),
+                  border-color var(--dur) var(--ease),
+                  background var(--dur) var(--ease);
+      color: var(--moonColor);
+      cursor:pointer;
+      margin-left:0;
+    }
+    .theme-fab:hover{
+      transform: translateY(-2px);
+      border-color: rgba(109,92,255,.22);
+      background: var(--btnBgHover);
+      box-shadow: 0 18px 60px rgba(16,24,40,.14);
+    }
+    html[data-theme="dark"] .theme-fab{ box-shadow: 0 16px 44px rgba(0,0,0,.45); }
+    html[data-theme="dark"] .theme-fab:hover{ box-shadow: 0 18px 60px rgba(0,0,0,.55); }
+    .theme-fab:focus-visible{ outline:none; box-shadow: var(--ring); }
+
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:.72rem 1rem;
+      border-radius: var(--r14);
+      border:1px solid var(--stroke);
+      background: var(--btnBg);
+      color: rgba(11,16,32,.92);
+      font-weight:750;
+      cursor:pointer;
+      transition: transform var(--dur) var(--ease),
+                  box-shadow var(--dur) var(--ease),
+                  border-color var(--dur) var(--ease),
+                  background var(--dur) var(--ease);
+      user-select:none;
+      -webkit-tap-highlight-color: transparent;
+      white-space:nowrap;
+    }
+    html[data-theme="dark"] .btn{ color: rgba(243,245,255,.92); }
+    .btn:hover{
+      --hover-scale: 1.03;
+      transform: translateY(-2px) scale(var(--hover-scale, 1));
+      border-color: rgba(109,92,255,.22);
+      box-shadow: 0 16px 44px rgba(16,24,40,.12);
+      background: var(--btnBgHover);
+    }
+    html[data-theme="dark"] .btn:hover{ box-shadow: 0 16px 44px rgba(0,0,0,.45); }
+    .btn:focus-visible{ outline:none; box-shadow:var(--ring); }
+
+    .hero-cta{
+      width:100%;
+      display:flex;
+      align-items:stretch;
+      justify-content:stretch;
+      gap:.6rem;
+      flex-wrap:nowrap;
+      margin-top: .85rem;
+    }
+    .hero-cta .btn{
+      flex: 1 1 0;
+      width: 0;
+      justify-content:center;
+    }
+    .hero-cta .btn-cv{ flex: .65 1 0; }
+
+    .contact-cta{
+      width:100%;
+      justify-content:center;
+      font-weight:900;
+    }
+
+    .muted{ color:var(--muted2); margin:0; }
+    .site-footer{
+      width:100%;
+      text-align:center;
+      padding: 1.2rem 1rem 1.4rem;
+      border-top:1px solid var(--stroke);
+      margin-top: .5rem;
+    }
+    .site-footer .muted{
+      font-size:.88rem;
+      letter-spacing:-.01em;
+      line-height:1.4;
+    }
+
+    .hero{ padding: 2.1rem 0 1.6rem; }
+    .hero-grid{ display:grid; grid-template-columns: 1.25fr .55fr; gap:1.2rem; align-items:stretch; }
+    .hero-content{ display:flex; flex-direction:column; justify-content:center; min-height: 260px; }
+    .hero-title-main{
+      margin-bottom: 1rem;
+      white-space: nowrap;
+      font-size: clamp(1.35rem, 2.7vw, 2.25rem);
+      line-height: 1.15;
+    }
+    .hero-media{
+      border-radius: var(--r20);
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.55);
+      box-shadow: 0 10px 26px rgba(16,24,40,.08);
+      padding: .9rem;
+      display:flex;
+      flex-direction:column;
+      gap:.3rem;
+      align-items:center;
+      justify-content:center;
+      min-height: 260px;
+    }
+    html[data-theme="dark"] .hero-media{
+      background: rgba(18,22,40,.55);
+      box-shadow: 0 10px 26px rgba(0,0,0,.35);
+    }
+    .hero-media img{
+      width:100%;
+      max-width: 420px;
+      height: auto;
+      border-radius: 16px;
+      object-fit: cover;
+      display:block;
+    }
+
+    .hero-title{ font-size: clamp(2rem, 3.6vw, 3rem); margin-bottom:.85rem; }
+    .hero-title .gradient-text{
+      display:inline-block;
+      font-size: clamp(2.6rem, 5.2vw, 4.9rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+    }
+
+    .gradient-text{
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+      text-shadow: 0 8px 26px rgba(109,92,255,.12);
+    }
+
+    .section{ padding: 3rem 0; }
+    #top,
+    #entreprise,
+    #e5,
+    #e6,
+    #veille{
+      min-height: 100vh;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+    .section-head{ margin-bottom:1.4rem; }
+
+    /* ✅ catégories toolbox */
+    .toolbox-categories{
+      display:flex;
+      flex-direction:column;
+      gap: 1.25rem;
+    }
+
+    #entreprise > div.duo-grid{
+      margin-top: 1.25rem;
+    }
+    .tool-category{
+      padding: .95rem;
+      border-radius: var(--r20);
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.55);
+      box-shadow: 0 10px 26px rgba(16,24,40,.06);
+    }
+    html[data-theme="dark"] .tool-category{
+      background: rgba(18,22,40,.55);
+      box-shadow: 0 10px 26px rgba(0,0,0,.30);
+    }
+    .category-head{
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap: .75rem;
+      margin-bottom: .85rem;
+      padding: 0 .15rem;
+    }
+    .category-title{
+      margin:0;
+      font-size: 1.05rem;
+      font-weight: 850;
+      letter-spacing:-.02em;
+    }
+    .category-subtitle{
+      margin:0;
+      color: var(--muted2);
+      font-size: .92rem;
+      font-weight: 650;
+      letter-spacing:-.01em;
+    }
+
+    /* ✅ 4 cartes par ligne */
+    .cards-grid{
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap:1rem;
+    }
+
+    .skill{
+      width:100%;
+      text-align:left;
+      border-radius: var(--r14);
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.70);
+      color: rgba(11,16,32,.92);
+      font-weight:750;
+      padding:.72rem 1rem;
+      cursor:pointer;
+      transition: transform var(--dur) var(--ease),
+                  box-shadow var(--dur) var(--ease),
+                  border-color var(--dur) var(--ease),
+                  background var(--dur) var(--ease);
+      user-select:none;
+      -webkit-tap-highlight-color: transparent;
+      box-shadow:none;
+      will-change: transform;
+    }
+    html[data-theme="dark"] .skill{
+      background: rgba(18,22,40,.70);
+      color: rgba(243,245,255,.92);
+    }
+    .skill:hover{
+      --hover-scale: 1.03;
+      transform: translateY(-2px) scale(var(--hover-scale, 1));
+      border-color: rgba(109,92,255,.22);
+      box-shadow: 0 16px 44px rgba(16,24,40,.12);
+      background: rgba(255,255,255,.92);
+    }
+    html[data-theme="dark"] .skill:hover{
+      box-shadow: 0 16px 44px rgba(0,0,0,.45);
+      background: rgba(18,22,40,.92);
+    }
+    .skill:focus-visible{ outline:none; box-shadow:var(--ring); }
+
+    .skill-top{ display:flex; align-items:center; gap:.75rem; }
+    .skill-icon{
+      width:46px; height:46px;
+      border-radius:16px;
+      display:grid; place-items:center;
+      background: rgba(255,255,255,.80);
+      border:1px solid var(--stroke);
+      box-shadow: 0 10px 26px rgba(16,24,40,.08);
+      flex:0 0 auto;
+      overflow:hidden;
+    }
+    html[data-theme="dark"] .skill-icon{
+      background: rgba(18,22,40,.85);
+      box-shadow: 0 10px 26px rgba(0,0,0,.35);
+    }
+    .skill-icon img{
+      width:26px; height:26px;
+      display:block;
+      filter: drop-shadow(0 8px 14px rgba(16,24,40,.10));
+      object-fit: contain;
+    }
+    .skill-name{
+      margin:0;
+      font-size:1.02rem;
+      letter-spacing:-.02em;
+      font-weight:600;
+      color: rgba(11,16,32,.92);
+    }
+    html[data-theme="dark"] .skill-name{ color: rgba(243,245,255,.92); }
+
+    .reveal{
+      opacity:0;
+      transform: translateY(var(--reveal-y, 12px)) scale(var(--hover-scale, 1));
+      transition: opacity 650ms var(--ease), transform 650ms var(--ease);
+      will-change: transform, opacity;
+    }
+    .reveal.is-visible{
+      opacity:1;
+      --reveal-y: 0px;
+    }
+
+    .modal{
+      position:fixed; inset:0;
+      display:none;
+      z-index: 80;
+    }
+    .modal.is-open{ display:block; }
+    .modal-backdrop{
+      position:absolute; inset:0;
+      background: rgba(11,16,32,.35);
+      backdrop-filter: blur(6px);
+    }
+    .modal-center{
+      position:relative;
+      min-height:100svh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 1.25rem 0;
+    }
+    .modal-panel{
+      position:relative;
+      width:min(720px, calc(100% - 2rem));
+      border-radius: var(--r20);
+      background: rgba(255,255,255,.92);
+      border: 1px solid var(--stroke2);
+      box-shadow: var(--shadow);
+      padding: 1.1rem 1.1rem 1.2rem;
+      transform: translateY(10px) scale(.98);
+      opacity:0;
+      transition: transform 320ms var(--ease), opacity 320ms var(--ease);
+    }
+    html[data-theme="dark"] .modal-panel{ background: rgba(18,22,40,.92); }
+    .modal.is-open .modal-panel{ transform: translateY(0) scale(1); opacity:1; }
+
+    .modal-head{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:1rem;
+      margin-bottom:.8rem;
+    }
+    .modal-title{
+      display:flex;
+      align-items:center;
+      gap:.8rem;
+      margin:0;
+      font-size: 1.25rem;
+      letter-spacing:-.02em;
+    }
+    .modal-title .modal-icon{
+      width:44px; height:44px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.85);
+      border: 1px solid var(--stroke);
+      display:grid; place-items:center;
+      overflow:hidden;
+      box-shadow: 0 10px 26px rgba(16,24,40,.08);
+      flex:0 0 auto;
+    }
+    html[data-theme="dark"] .modal-title .modal-icon{
+      background: rgba(18,22,40,.85);
+      box-shadow: 0 10px 26px rgba(0,0,0,.35);
+    }
+    .modal-title .modal-icon img{ width:26px; height:26px; display:block; object-fit: contain; }
+
+    .modal-close{
+      border-radius: 12px;
+      padding:.55rem .75rem;
+      border:1px solid var(--stroke);
+      background: var(--btnBg);
+      cursor:pointer;
+      font-weight:800;
+      transition: transform var(--dur) var(--ease), background var(--dur) var(--ease);
+      color: inherit;
+    }
+    .modal-close:hover{ transform: translateY(-1px); background: var(--btnBgHover); }
+    .modal-close:focus-visible{ outline:none; box-shadow: var(--ring); }
+
+    .modal-body{ text-align:left; }
+    .modal-body p{ margin:0 0 .85rem; color: var(--muted); }
+    .tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.5rem;
+      margin: .25rem 0 0;
+      padding:0;
+      list-style:none;
+      justify-content:flex-start;
+    }
+    .tag{
+      font-size:.9rem;
+      font-weight:750;
+      padding:.45rem .65rem;
+      border-radius: 999px;
+      border:1px solid rgba(109,92,255,.18);
+      background: rgba(109,92,255,.08);
+      color: rgba(11,16,32,.88);
+    }
+    html[data-theme="dark"] .tag{
+      color: rgba(243,245,255,.90);
+      background: rgba(109,92,255,.16);
+      border-color: rgba(109,92,255,.22);
+    }
+
+    /* ✅ modal contact */
+    .contact-modal .modal-panel{ width:min(520px, calc(100% - 2rem)); }
+    .contact{ width:100%; padding:.25rem 0 0; }
+
+    .contact-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:.55rem;
+    }
+    .field{ display:flex; flex-direction:column; gap:.35rem; }
+    .field.full{ grid-column: 1 / -1; }
+
+    .sr-only{
+      position:absolute !important;
+      width:1px; height:1px;
+      padding:0; margin:-1px;
+      overflow:hidden; clip:rect(0,0,0,0);
+      white-space:nowrap; border:0;
+    }
+
+    .input, .textarea{
+      width:100%;
+      border-radius: 14px;
+      border:1px solid var(--stroke);
+      background: var(--fieldBg);
+      color: var(--fieldText);
+      padding: .6rem .75rem;
+      font: inherit;
+      outline:none;
+      transition: box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease), background var(--dur) var(--ease);
+    }
+    .textarea{ min-height: 110px; resize: vertical; }
+    .input::placeholder, .textarea::placeholder{ color: var(--placeholder); }
+    .input:focus, .textarea:focus{
+      background: var(--fieldBgFocus);
+      border-color: rgba(109,92,255,.28);
+      box-shadow: var(--ring);
+    }
+
+    .contact-actions{ display:flex; justify-content:flex-end; margin-top:.75rem; }
+    .btn-send{ width:100%; justify-content:center; font-weight:900; }
+
+    @media (max-width: 980px){
+      .top-nav{
+        right: 12px;
+        top: 12px;
+      }
+
+      .hero-grid{ grid-template-columns: 1fr; }
+      .cards-grid{ grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .contact-grid{ grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 720px){
+      .hero-title-main{ font-size: clamp(1.05rem, 4.8vw, 1.35rem); }
+      .top-nav{ position: fixed; right: 10px; left: 10px; justify-content:flex-end; }
+      .nav-links{ max-width: calc(100vw - 96px); overflow-x:auto; }
+    }
+
+    @media (max-width: 720px){
+      /* ✅ mobile : 2 colonnes */
+      .cards-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .home-fab{ top: 14px; left: 14px; }
+    }
+
+    @media (max-width: 420px){
+      /* ✅ très petit : 1 colonne */
+      .cards-grid{ grid-template-columns: 1fr; }
+      .category-head{ flex-direction:column; align-items:flex-start; }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      html{ scroll-behavior:auto; }
+      .reveal{ transition:none; transform:none; opacity:1; }
+      .btn,.nav-link,.skill,.modal-panel,.input,.textarea,.home-fab,.theme-fab,.to-top{ transition:none !important; }
+      .skill:hover,.to-top:hover{ transform:none; box-shadow:none; }
+      .modal-panel{ transform:none; opacity:1; }
+    }
+
+    /* --- Styles supplémentaires (Entreprise / E5 / Veille) --- */
+    .lead{
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.55;
+      max-width: 150ch;
+    }
+
+    /* --- Entreprise (cards + media) --- */
+    .media-row{
+      display:flex;
+      gap:1rem;
+      align-items:stretch;
+      margin: 1.15rem 0 0;
+    }
+    .media-video{ flex: 0 0 60%; display:flex; }
+    .media-video video{
+      width:100%;
+      height:100%;
+      aspect-ratio: 16 / 9;
+      border-radius: var(--r20);
+      box-shadow: 0 16px 44px rgba(16,24,40,.12);
+      background: rgba(255,255,255,.35);
+      object-fit: cover;
+      display:block;
+      border:0;
+    }
+    html[data-theme="dark"] .media-video video{
+      box-shadow: 0 16px 44px rgba(0,0,0,.45);
+      background: rgba(18,22,40,.35);
+    }
+    .media-logo{
+      flex: 0 0 38.5%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: rgba(255, 255, 255, .70);
+      padding: 1.2rem;
+      border-radius: var(--r20);
+      box-shadow: 0 16px 44px rgba(16,24,40,.12);
+    }
+    html[data-theme="dark"] .media-logo{
+      background:#fff;
+      box-shadow: 0 16px 44px rgba(0,0,0,.45);
+    }
+    .media-logo img{
+      max-width:100%;
+      max-height:100%;
+      object-fit:contain;
+      display:block;
+    }
+    .enterprise-row{
+      justify-content:space-between;
+      align-items:flex-start;
+    }
+    .enterprise-copy{
+      flex: 1 1 auto;
+      display:flex;
+      justify-content:flex-start;
+      align-items:flex-start;
+      text-align:left;
+    }
+    .enterprise-copy .lead{
+      max-width: 80ch;
+      margin-left:0;
+    }
+    .enterprise-logo{
+      flex: 0 0 280px;
+      justify-content:flex-end;
+    }
+    @media (max-width: 900px){
+      .media-row{ flex-direction:column; }
+      .media-video, .media-logo{ flex: 1 1 auto; }
+      .enterprise-copy{ text-align:left; justify-content:flex-start; }
+      .enterprise-copy .lead{ margin-left:0; }
+      .enterprise-logo{ flex: 1 1 auto; justify-content:flex-start; }
+    }
+
+    .experience-subtitle{
+      margin: 1.05rem 0 0;
+      font-size: 1.35rem;
+      letter-spacing:-.02em;
+      font-weight: 850;
+    }
+
+    .duo-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      align-items:stretch;
+    }
+    @media (max-width: 720px){ .duo-grid{ grid-template-columns: 1fr; } }
+
+    .duo-card{
+      position: relative;
+      border-radius: var(--r20);
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.70);
+      box-shadow: 0 10px 26px rgba(16,24,40,.08);
+      padding: 1.05rem 1.1rem 1.05rem;
+      min-height: 220px;
+      overflow: hidden;
+      display:flex;
+      flex-direction:column;
+      gap:.75rem;
+      transition: transform var(--dur) var(--ease),
+                  box-shadow var(--dur) var(--ease),
+                  border-color var(--dur) var(--ease),
+                  background var(--dur) var(--ease);
+      will-change: transform;
+    }
+    .duo-card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(680px 260px at 0% 0%, rgba(109,92,255,.18), transparent 55%),
+        radial-gradient(520px 220px at 100% 10%, rgba(31,140,255,.14), transparent 55%);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .duo-card::after{
+      content:"";
+      position:absolute;
+      top:0; left:0; right:0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      opacity:.95;
+      pointer-events:none;
+    }
+    .duo-card:hover{
+      border-color: rgba(109,92,255,.22);
+      box-shadow: 0 16px 44px rgba(16,24,40,.12);
+      background: rgba(255,255,255,.86);
+    }
+    html[data-theme="dark"] .duo-card{
+      background: rgba(18,22,40,.70);
+      box-shadow: 0 10px 26px rgba(0,0,0,.35);
+    }
+    html[data-theme="dark"] .duo-card::before{
+      opacity:.7;
+      background:
+        radial-gradient(680px 260px at 0% 0%, rgba(109,92,255,.22), transparent 55%),
+        radial-gradient(520px 220px at 100% 10%, rgba(31,140,255,.18), transparent 55%);
+    }
+    html[data-theme="dark"] .duo-card:hover{
+      box-shadow: 0 16px 44px rgba(0,0,0,.45);
+      background: rgba(18,22,40,.86);
+    }
+    .duo-card > *{ position:relative; z-index:1; }
+
+    .duo-head{
+      display:flex;
+      flex-direction:column;
+      gap:.35rem;
+      padding-right: 96px;
+    }
+    .duo-card h3{
+      margin:0;
+      font-weight: 950;
+      letter-spacing:-.02em;
+      font-size: 1.2rem;
+    }
+    .duo-role{
+      display:block;
+      width:auto;
+      padding:0;
+      border:0;
+      background: transparent;
+      border-radius:0;
+      color: var(--muted);
+      font-weight: 650;
+      letter-spacing: 0;
+      font-size:1.5rem;
+    }
+    html[data-theme="dark"] .duo-role{ color: var(--muted); }
+
+    .duo-body{
+      display:flex;
+      flex-direction:column;
+      gap:.55rem;
+      flex: 1 1 auto;
+      min-height: 0;
+    }
+
+    .duo-list{
+      margin:0;
+      padding:0;
+      list-style:none;
+      display:flex;
+      flex-direction:column;
+      gap:.45rem;
+    }
+    .duo-list li{
+      position:relative;
+      padding-left: 1.05rem;
+      color: var(--muted);
+      line-height:1.5;
+    }
+    .duo-list li::before{
+      content:"";
+      position:absolute;
+      left:0;
+      top:.58rem;
+      width:.48rem;
+      height:.48rem;
+      border-radius:999px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      box-shadow: 0 6px 18px rgba(109,92,255,.18);
+    }
+
+    .duo-date{
+      position:absolute;
+      top: 12px;
+      right: 12px;
+      font-size:.86rem;
+      font-weight:850;
+      letter-spacing:-.01em;
+      padding:.35rem .6rem;
+      border-radius:999px;
+      border:1px solid rgba(109,92,255,.22);
+      background: rgba(109,92,255,.10);
+      color: rgba(11,16,32,.86);
+      pointer-events:none;
+      z-index:2;
+    }
+    html[data-theme="dark"] .duo-date{
+      color: rgba(243,245,255,.90);
+      background: rgba(109,92,255,.16);
+      border-color: rgba(109,92,255,.24);
+    }
+
+    .duo-more{ margin-top: auto; padding-top: .4rem; }
+    .duo-more .btn{ width:100%; justify-content:center; }
+
+    /* --- E5 / Blocs --- */
+    .panel{
+      border-radius: var(--r20);
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.70);
+      box-shadow: 0 10px 26px rgba(16,24,40,.06);
+      overflow:hidden;
+      position:relative;
+    }
+    html[data-theme="dark"] .panel{
+      background: rgba(18,22,40,.70);
+      box-shadow: 0 10px 26px rgba(0,0,0,.30);
+    }
+
+    .panel::after{
+      content:"";
+      position:absolute;
+      top:0; left:0; right:0;
+      height:4px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      opacity:.95;
+      pointer-events:none;
+      z-index:1;
+    }
+
+    .panel-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: .75rem;
+      padding: .95rem 1rem .9rem;
+      border-bottom:1px solid var(--stroke);
+      position:relative;
+      z-index:2;
+    }
+    html[data-theme="dark"] .panel-top{
+      background: linear-gradient(180deg, rgba(18,22,40,.55), rgba(18,22,40,.25));
+    }
+
+    .panel-title{
+      margin:0;
+      font-size: 1.05rem;
+      font-weight: 950;
+      letter-spacing:-.02em;
+    }
+    .panel-actions{
+      display:flex;
+      gap:.6rem;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .btn-mini{
+      display:inline-flex;
+      align-items:center;
+      gap:.45rem;
+      padding:.55rem .75rem;
+      border-radius: 12px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.55);
+      font-weight: 900;
+      cursor:pointer;
+      transition: transform var(--dur) var(--ease), background var(--dur) var(--ease), border-color var(--dur) var(--ease);
+    }
+    html[data-theme="dark"] .btn-mini{ background: rgba(18,22,40,.55); color: rgba(243,245,255,.92); }
+    .btn-mini:hover{
+      transform: translateY(-1px);
+      border-color: rgba(109,92,255,.22);
+      background: rgba(255,255,255,.78);
+    }
+    html[data-theme="dark"] .btn-mini:hover{ background: rgba(18,22,40,.78); }
+
+    .sheet-wrap{
+      width:100%;
+      height: clamp(520px, 72svh, 900px);
+      background: rgba(255,255,255,.35);
+      position:relative;
+      z-index:0;
+      overflow:auto;
+    }
+    html[data-theme="dark"] .sheet-wrap{ background: rgba(18,22,40,.35); }
+
+    .sheet{
+      width:100%;
+      height:100%;
+      border:0;
+      display:block;
+      transform: scale(.92);
+      transform-origin: 0 0;
+      width: calc(100% / .92);
+      height: calc(100% / .92);
+    }
+
+    #e6 > div{
+      margin-top: 1.25rem;
+    }
+
+    .blocks-grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      align-items:stretch;
+    }
+
+    .bloc-link{
+      width:100%;
+      text-align:left;
+      border-radius: var(--r20);
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.70);
+      color: rgba(11,16,32,.92);
+      font-weight:850;
+      padding: .95rem 1rem;
+      cursor:pointer;
+      transition: transform var(--dur) var(--ease),
+                  box-shadow var(--dur) var(--ease),
+                  border-color var(--dur) var(--ease),
+                  background var(--dur) var(--ease);
+      user-select:none;
+      -webkit-tap-highlight-color: transparent;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:.9rem;
+      min-height: 92px;
+      position:relative;
+      overflow:hidden;
+      will-change: transform;
+    }
+    html[data-theme="dark"] .bloc-link{
+      background: rgba(18,22,40,.70);
+      color: rgba(243,245,255,.92);
+    }
+
+    .bloc-link::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(720px 280px at 0% 0%, rgba(109,92,255,.16), transparent 55%),
+        radial-gradient(520px 240px at 100% 10%, rgba(31,140,255,.12), transparent 55%);
+      opacity:.95;
+      pointer-events:none;
+    }
+    html[data-theme="dark"] .bloc-link::before{
+      opacity:.70;
+      background:
+        radial-gradient(720px 280px at 0% 0%, rgba(109,92,255,.22), transparent 55%),
+        radial-gradient(520px 240px at 100% 10%, rgba(31,140,255,.16), transparent 55%);
+    }
+
+    .bloc-link:hover{
+      --hover-scale: 1.01;
+      transform: translateY(-2px) scale(var(--hover-scale, 1));
+      border-color: rgba(109,92,255,.22);
+      box-shadow: 0 16px 44px rgba(16,24,40,.12);
+      background: rgba(255,255,255,.88);
+    }
+    html[data-theme="dark"] .bloc-link:hover{
+      box-shadow: 0 16px 44px rgba(0,0,0,.45);
+      background: rgba(18,22,40,.88);
+    }
+    .bloc-link:focus-visible{ outline:none; box-shadow:var(--ring); }
+
+    .bloc-link > *{ position:relative; z-index:1; }
+
+    .bloc-text{
+      display:flex;
+      flex-direction:column;
+      gap:.35rem;
+      min-width: 0;
+      justify-content:center;
+    }
+    .bloc-title{
+      margin:0;
+      font-size: 1.02rem;
+      font-weight: 950;
+      letter-spacing:-.02em;
+      line-height:1.25;
+    }
+    .bloc-sub{
+      margin:0;
+      color: var(--muted);
+      font-weight:750;
+      font-size: .92rem;
+      line-height:1.35;
+    }
+
+    .bloc-arrow{
+      flex: 0 0 auto;
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.55);
+      display:grid;
+      place-items:center;
+    }
+    html[data-theme="dark"] .bloc-arrow{ background: rgba(18,22,40,.55); }
+    .bloc-arrow svg{ width:20px; height:20px; display:block; }
+
+    /* --- Veille / Dashboard --- */
+    .card{
+      border-radius: var(--r20);
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.70);
+      box-shadow: 0 10px 26px rgba(16,24,40,.06);
+      padding: 1.05rem 1.1rem 1.05rem;
+      position:relative;
+      overflow:hidden;
+      transition: transform var(--dur) var(--ease),
+                  box-shadow var(--dur) var(--ease),
+                  border-color var(--dur) var(--ease),
+                  background var(--dur) var(--ease);
+      will-change: transform;
+    }
+    html[data-theme="dark"] .card{
+      background: rgba(18,22,40,.70);
+      box-shadow: 0 10px 26px rgba(0,0,0,.30);
+    }
+    .card::after{
+      content:"";
+      position:absolute;
+      top:0; left:0; right:0;
+      height:4px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      opacity:.95;
+      pointer-events:none;
+    }
+    .card:hover{
+      transform: translateY(-2px);
+      border-color: rgba(109,92,255,.22);
+      box-shadow: 0 16px 44px rgba(16,24,40,.10);
+      background: rgba(255,255,255,.85);
+    }
+    html[data-theme="dark"] .card:hover{
+      box-shadow: 0 16px 44px rgba(0,0,0,.42);
+      background: rgba(18,22,40,.85);
+    }
+
+    .dash{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 1rem;
+      align-items:stretch;
+    }
+    @media (max-width: 980px){ .dash{ grid-template-columns: 1fr; } }
+
+    .stats{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      align-items:stretch;
+    }
+    .stat{
+      display:flex;
+      flex-direction:column;
+      gap:.35rem;
+      justify-content:center;
+      min-height: 120px;
+    }
+    .stat-k{
+      font-size: .92rem;
+      font-weight: 850;
+      color: var(--muted2);
+      letter-spacing:-.01em;
+      margin:0;
+    }
+    .stat-v{
+      font-size: clamp(1.4rem, 2.3vw, 1.85rem);
+      font-weight: 950;
+      letter-spacing:-.03em;
+      margin:0;
+    }
+    .stat-hint{
+      margin:0;
+      color: var(--muted);
+      line-height:1.5;
+      font-size: .96rem;
+    }
+
+    .bento{
+      display:grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 1rem;
+      align-items:stretch;
+    }
+    .span-12{ grid-column: span 12; }
+    .span-8{ grid-column: span 8; }
+    .span-7{ grid-column: span 7; }
+    .span-6{ grid-column: span 6; }
+    .span-5{ grid-column: span 5; }
+    .span-4{ grid-column: span 4; }
+    @media (max-width: 980px){
+      .span-8,.span-7,.span-6,.span-5,.span-4{ grid-column: span 12; }
+    }
+
+    .two-col{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      align-items:stretch;
+    }
+    @media (max-width: 900px){ .two-col{ grid-template-columns: 1fr; } }
+
+    .list{
+      margin:0;
+      padding:0;
+      list-style:none;
+      display:flex;
+      flex-direction:column;
+      gap:.45rem;
+    }
+    .list li{
+      position:relative;
+      padding-left: 1.05rem;
+      color: var(--muted);
+      line-height:1.55;
+    }
+    .list li::before{
+      content:"";
+      position:absolute;
+      left:0;
+      top:.62rem;
+      width:.48rem;
+      height:.48rem;
+      border-radius:999px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      box-shadow: 0 6px 18px rgba(109,92,255,.18);
+    }
+
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.55rem;
+      margin: .25rem 0 0;
+      padding:0;
+      list-style:none;
+    }
+    .chip{
+      font-size:.9rem;
+      font-weight:850;
+      padding:.45rem .7rem;
+      border-radius: 999px;
+      border:1px solid rgba(109,92,255,.18);
+      background: rgba(109,92,255,.08);
+      color: rgba(11,16,32,.88);
+    }
+    html[data-theme="dark"] .chip{
+      color: rgba(243,245,255,.90);
+      background: rgba(109,92,255,.16);
+      border-color: rgba(109,92,255,.22);
+    }
+
+    .feed{
+      display:flex;
+      flex-direction:column;
+      gap: .75rem;
+    }
+    .item{
+      display:grid;
+      grid-template-columns: 1fr auto;
+      gap: .75rem;
+      align-items:start;
+    }
+    @media (max-width: 720px){ .item{ grid-template-columns: 1fr; } }
+    .item h3{
+      margin:0 0 .35rem;
+      font-size: 1.05rem;
+      letter-spacing:-.02em;
+      font-weight: 950;
+    }
+    .meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.5rem;
+      justify-content:flex-end;
+      align-items:center;
+      color: var(--muted2);
+      font-weight: 850;
+    }
+    @media (max-width: 720px){ .meta{ justify-content:flex-start; } }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:.28rem .6rem;
+      border-radius:999px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.55);
+      font-size:.86rem;
+      font-weight:850;
+      white-space:nowrap;
+    }
+    html[data-theme="dark"] .pill{ background: rgba(18,22,40,.55); }
+
+    .item p{ margin:0; color: var(--muted); line-height:1.55; }
+    .item .actions{
+      display:flex;
+      gap:.5rem;
+      flex-wrap:wrap;
+      margin-top:.6rem;
+    }
+
+    .gloss{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+    @media (max-width: 980px){ .gloss{ grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+    .duo-grid.veille-grid{
+      grid-template-columns: 1fr;
+      align-items: start;
+    }
+
+    .duo-grid.veille-grid .duo-card{
+      min-height: 0;
+      height: auto;
+    }
+
+    .zero-trust-image-card .duo-body{
+      align-items:center;
+      justify-content:center;
+    }
+    .zero-trust-image-card img{
+      width: 100%;
+      max-width: 320px;
+      height: auto;
+      object-fit: contain;
+      border-radius: 14px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.45);
+      box-shadow: 0 10px 26px rgba(16,24,40,.10);
+      display:block;
+    }
+    html[data-theme="dark"] .zero-trust-image-card img{
+      background: rgba(18,22,40,.45);
+      box-shadow: 0 10px 26px rgba(0,0,0,.35);
+    }
+    @media (max-width: 900px){
+      .zero-trust-image-card img{ max-width: 280px; }
+    }
+
+    .veille-pair{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      align-items:stretch;
+    }
+    @media (max-width: 720px){ .veille-pair{ grid-template-columns: 1fr; } }
+
+    /* Styles for the example VPN table */
+    .example-table-wrap{
+      overflow:auto;
+      border-radius: 12px;
+      margin-top: .5rem;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.55);
+    }
+    html[data-theme="dark"] .example-table-wrap{ background: rgba(18,22,40,.55); }
+    .example-table{
+      width:100%;
+      border-collapse: collapse;
+      min-width: 520px; /* allow horizontal scroll on small screens */
+    }
+    .example-table th, .example-table td{
+      padding: .6rem .8rem;
+      border: 1px solid var(--stroke);
+      text-align: left;
+      vertical-align: top;
+      font-size: .95rem;
+    }
+    .example-table thead th{
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      color: #fff;
+      font-weight: 900;
+    }
+    .example-table tr:nth-child(even) td{
+      background: rgba(11,16,32,.03);
+    }
+    html[data-theme="dark"] .example-table tr:nth-child(even) td{
+      background: rgba(243,245,255,.02);
+      opacity: .04;
+    }
+
+  </style>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      // Active nav (via hash)
+      function updateActiveNav(){
+        const hash = window.location.hash.slice(1) || "top";
+        document.body.setAttribute("data-page", hash);
+        document.querySelectorAll(".nav-link").forEach(a => {
+          if (a.dataset.page === hash) a.classList.add("is-active");
+          else a.classList.remove("is-active");
+        });
+      }
+      updateActiveNav();
+      window.addEventListener("hashchange", updateActiveNav);
+
+      // Reveal
+      const els = Array.from(document.querySelectorAll(".reveal"));
+      if (prefersReduced) {
+        els.forEach(el => el.classList.add("is-visible"));
+      } else {
+        const io = new IntersectionObserver((entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              io.unobserve(entry.target);
+            }
+          }
+        }, { threshold: 0.12, rootMargin: "0px 0px -10% 0px" });
+        els.forEach(el => io.observe(el));
+      }
+
+      const root = document.documentElement;
+
+      // ✅ Back to top visibility
+      const toTop = document.querySelector("[data-to-top]");
+      function updateToTop(){
+        if (!toTop) return;
+        const y = window.scrollY || document.documentElement.scrollTop || 0;
+        if (y > 420) toTop.classList.add("is-visible");
+        else toTop.classList.remove("is-visible");
+      }
+      updateToTop();
+      window.addEventListener("scroll", updateToTop, { passive: true });
+
+      // Skill modal
+      const modal = document.querySelector("[data-skill-modal]");
+      const modalBackdrop = document.querySelector("[data-skill-backdrop]");
+      const modalClose = document.querySelector("[data-skill-close]");
+      const modalTitle = document.querySelector("[data-skill-title]");
+      const modalIcon = document.querySelector("[data-skill-icon]");
+      const modalDesc = document.querySelector("[data-skill-desc]");
+      const modalTags = document.querySelector("[data-skill-tags]");
+      let lastFocus = null;
+
+      function openModal(payload){
+        if (!modal) return;
+        lastFocus = document.activeElement;
+
+        modalTitle.textContent = payload.name;
+        modalIcon.src = payload.icon;
+        modalIcon.alt = payload.name;
+        modalDesc.textContent = payload.desc;
+
+        modalTags.innerHTML = "";
+        (payload.tags || []).forEach(t => {
+          const li = document.createElement("li");
+          li.className = "tag";
+          li.textContent = t;
+          modalTags.appendChild(li);
+        });
+
+        modal.classList.add("is-open");
+        modal.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+        (modalClose || modal).focus?.();
+      }
+
+      function closeModal(){
+        if (!modal) return;
+        modal.classList.remove("is-open");
+        modal.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+        if (lastFocus && lastFocus.focus) lastFocus.focus();
+      }
+
+      document.querySelectorAll(".skill[data-skill]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const payload = {
+            name: btn.dataset.name,
+            icon: btn.dataset.icon,
+            desc: btn.dataset.desc,
+            tags: (btn.dataset.tags || "").split(",").map(s => s.trim()).filter(Boolean),
+          };
+          openModal(payload);
+        });
+      });
+
+      modalBackdrop?.addEventListener("click", closeModal);
+      modalClose?.addEventListener("click", closeModal);
+
+      document.addEventListener("keydown", (e) => {
+        if (modal && modal.getAttribute("aria-hidden") === "false" && e.key === "Escape") closeModal();
+      });
+
+      // Theme toggle
+      const toggle = document.querySelector("[data-theme-toggle]");
+      function setTheme(next){
+        root.setAttribute("data-theme", next);
+        try { localStorage.setItem("theme", next); } catch (_) {}
+        toggle?.setAttribute("aria-pressed", next === "dark" ? "true" : "false");
+      }
+
+      (function initTheme(){
+        let saved = null;
+        try { saved = localStorage.getItem("theme"); } catch (_) {}
+        if (saved === "dark" || saved === "light") { setTheme(saved); return; }
+        const sysDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+        setTheme(sysDark ? "dark" : "light");
+      })();
+
+      toggle?.addEventListener("click", () => {
+        const cur = root.getAttribute("data-theme") === "dark" ? "dark" : "light";
+        setTheme(cur === "dark" ? "light" : "dark");
+      });
+
+      // Contact popup
+      const contactModal = document.querySelector("[data-contact-modal]");
+      const contactBackdrop = document.querySelector("[data-contact-backdrop]");
+      const contactClose = document.querySelector("[data-contact-close]");
+      const contactOpen = document.querySelector("[data-contact-open]");
+      const contactForm = document.querySelector("[data-contact-form]");
+      let lastFocusContact = null;
+
+      function openContact(){
+        if (!contactModal) return;
+        lastFocusContact = document.activeElement;
+        contactModal.classList.add("is-open");
+        contactModal.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+        (contactClose || contactModal).focus?.();
+      }
+      function closeContact(){
+        if (!contactModal) return;
+        contactModal.classList.remove("is-open");
+        contactModal.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+        if (lastFocusContact && lastFocusContact.focus) lastFocusContact.focus();
+      }
+
+      contactOpen?.addEventListener("click", openContact);
+      contactBackdrop?.addEventListener("click", closeContact);
+      contactClose?.addEventListener("click", closeContact);
+
+      document.addEventListener("keydown", (e) => {
+        if (contactModal && contactModal.getAttribute("aria-hidden") === "false" && e.key === "Escape") closeContact();
+      });
+
+      contactForm?.addEventListener("submit", (e) => {
+        e.preventDefault();
+        alert("Message prêt à être envoyé (à brancher sur un backend ou un service type Formspree).");
+        contactForm.reset();
+        closeContact();
+      });
+    });
+  </script>
+</head>
+
+<body data-page="index">
+  <a class="home-fab" href="#top" aria-label="Retour à l'accueil">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M3 10.5L12 3l9 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M5.5 9.8V21h13V9.8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M9.5 21v-7h5v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
+
+  <!-- ✅ Back to top (rond, flèche, sans texte) -->
+  <a class="to-top" href="#top" data-to-top aria-label="Retour en haut">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M12 19V5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <path d="M7 10l5-5 5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
+
+  <div class="top-nav" aria-label="Navigation principale fixe">
+    <button class="theme-fab" type="button" data-theme-toggle aria-label="Basculer le mode sombre" aria-pressed="false">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M21 13.2A8.4 8.4 0 1 1 10.8 3a7 7 0 0 0 10.2 10.2Z"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
+    <nav class="nav-links" aria-label="Navigation principale">
+      <a class="nav-link" href="#entreprise" data-page="entreprise">Entreprise</a>
+      <a class="nav-link" href="#e5" data-page="e5">E5</a>
+      <a class="nav-link" href="#e6" data-page="e6">E6</a>
+      <a class="nav-link" href="#veille" data-page="veille">Veille</a>
+    </nav>
+  </div>
+
+  <div class="layout">
+    <div class="content">
+      <main id="main">
+        <section class="hero container reveal" id="top">
+          <h2 class="hero-title hero-title-main">
+            <span class="gradient-text">PORTFOLIO - BTS SIO SISR </span>
+            <h2>Naelle Mezghenna</h2>
+          </h2>
+          <div class="hero-grid">
+            <div class="hero-content">
+               <p class="lead">
+                Je m’appelle Naelle , étudiante en BTS Services informatiques aux organisations, option SISR  (solution d’infrastructure, système et réseau) .
+              <br><br>
+                Passionnée par le domaine du réseau et de la sécurité, je souhaite poursuivre mon parcours professionnel dans ce secteur en constante évolution, que je découvre et approfondis chaque jour avec intérêt grandissant. 
+              <br><br>
+                Au cours de mes deux années de formation, j’ai acquis de solides connaissances techniques ainsi que des compétences pratiques que j’ai pu mettre en œuvre lors de mes différentes expériences en stage et alternance. Ces expériences m’ont permis de développer mon sens de l’analyse, ma rigueur ainsi que ma capacité à m’adapter à des environnements professionnels
+              <br><br>
+                A travers ce portfolio je vous présente mon parcours ainsi que mes compétences que j’ai développé dans le domaine des infrastructures et réseaux
+              </p>
+            </div>
+            <div class="hero-media">
+              <img src="/assets/images/photo cv .JPEG" alt="Photo de Naelle Mezghenna">
+              <div class="hero-cta" role="group" aria-label="Liens principaux">
+                <a class="btn btn-cv" href="assets/images/cv.pdf" aria-label="Ouvrir le CV (PDF)" target="_blank" rel="noreferrer">CV</a>
+                <a class="btn" href="https://www.linkedin.com/in/naelle-mezghenna-12046429b/" aria-label="Ouvrir LinkedIn (nouvel onglet)" target="_blank" rel="noreferrer">LinkedIn</a>
+                <a class="btn btn" href="assets/images/certification introduction cybersécurité.pdf" aria-label="Certification (PDF)" target="_blank" rel="noreferrer">Certification</a>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ======================================
+             Contenu regroupé : Entreprise / E5 / E6 / Veille
+             ====================================== -->
+
+        <!-- ENTREPRISE -->
+        <section class="hero container reveal" id="entreprise">
+          <h2 class="hero-title">
+            <span class="gradient-text">ENTREPRISE</span><br>
+            BNP Paribas 
+          </h2>
+          <div class="media-row enterprise-row" aria-label="Présentation BNP Paribas et logo">
+            <div class="enterprise-copy">
+              <p class="lead">
+                Le groupe Bnp Paribas est un acteur majeur du secteur bancaire en Europe et à l’international. Son pôle informatique appelé IT GROUPE joue un rôle essentiel dans la gestion de la sécurisation des systèmes d’information du groupe.
+                <br><br>
+                Basée notamment sur 3 sites à Montreuil les équipes IT assurent le bon fonctionnement des infrastructures des réseaux et des services informatiques.
+              </p>
+            </div>
+
+            <div class="media-logo enterprise-logo">
+              <a href="https://www.bnp-paribas.com/" target="_blank" rel="noopener noreferrer" aria-label="Ouvrir BNP Paribas.com (nouvel onglet)">
+                <img src="/assets/images/logobnp.jpg" alt="Logo BNP Paribas" />
+              </a>
+            </div>
+          </div>
+
+          <div class="duo-grid" role="group" aria-label="Blocs stage et alternance">
+            <article class="duo-card">
+              <span class="duo-date" aria-label="Période">mai-juin 2025</span>
+
+              <div class="duo-head">
+                <h3>Stage</h3>
+                <br>
+                <span class="duo-role">Cybersécurité </span>
+                <br>
+              </div>
+
+              <div class="duo-body">
+                <ul class="duo-list" aria-label="Missions réalisées en stage">
+                  <li>Gestion de authentication forte</li>
+                  <li>Controle accès utilisateur </li>
+                  <li>Administration tokens RSA</li>
+                  
+                </ul>
+
+                
+              </div>
+            </article>
+
+            <article class="duo-card">
+              <span class="duo-date" aria-label="Période">août 2025 - août 2026</span>
+
+              <div class="duo-head">
+                <h3>Alternance</h3>
+                <br>
+                <span class="duo-role">Technicienne support </span>
+                <br>
+              </div>
+
+              <div class="duo-body">
+                <ul class="duo-list" aria-label="Missions réalisées en alternance">
+                  <li>Assistance utilisateurs </li>
+                  <li>Diagnostique incidents</li>
+                  <li>Attribution droit d’accès </li>
+                  <li>Configuration des postes de travail</li>
+                </ul>
+
+              
+              </div>
+            </article>
+          </div>
+        </section>
+
+        
+        <br><br><br><br>
+        <!-- E5 -->
+        <section class="hero container reveal" id="e5">
+          <h2 class="hero-title"><span class="gradient-text">EPREUVE E5</span> <br>Tableau de synthèse</h2>
+          
+
+          <div class="panel reveal" aria-label="Tableau de synthèse">
+            <div class="sheet-wrap" aria-label="Aperçu du tableur">
+              <iframe class="sheet" src="./assets/images/tableau.pdf" frameborder="0" allowfullscreen></iframe>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- E6 (placeholder) -->
+        <section class="hero container reveal" id="e6">
+          <h2 class="hero-title"><span class="gradient-text">EPREUVE E6</span> <br> Projets</h2>
+          
+          <div class="duo-grid mide" role="group" aria-label="Blocs E6">
+            <article class="duo-card">
+              <div class="duo-head">
+                <h3>Active directory</h3>
+              </div>
+              <div class="duo-body">
+                <p class="lead">Projet d’administration et de gestion des utilisateurs via Active Directory, permettant la centralisation et la sécurisation des accès au sein de l’entreprise.</p>
+              </div>
+                <img src="./assets/images/activedirectorylogo.png" alt="" >
+                <div class="duo-more">
+                  <button class="btn">VOIR LA DOCUMENTATION</button>
+                </div>
+            </article>
+
+            <article class="duo-card">
+              <div class="duo-head">
+                <h3>GLPI</h3>
+              </div>
+              <div class="duo-body">
+                <p class="lead">Projet d’administration et de gestion des utilisateurs via Active Directory, permettant la centralisation et la sécurisation des accès au sein de l’entreprise.</p>
+              </div>
+              <img src="./assets/images/glpilogo.webp" alt="GLPI">
+              <div class="duo-more">
+                <button class="btn">VOIR LA DOCUMENTATION</button>
+              </div>
+            </article>
+          </div>
+        </section>
+
+      
+
+        <!-- VEILLE -->
+        <section class="hero container reveal" id="veille">
+          <h2 class="hero-title"><span class="gradient-text">VEILLE — VPN</span></h2>
+          <div class="duo-grid veille-grid">
+            <article class="duo-card">
+              <div class="duo-body">
+                <h2>VPN c’est quoi ? </h2>
+                <p class="lead">
+                Le VPN (Virtual Private Network) est une technologie qui crée une connexion sécurisée et chiffrée entre un utilisateur et un réseau distant. Il crée un tunnel virtuel entre le serveur et l’appareil qui permet de chiffrée les donnée les rendant illisible pour les personnes tentant de les intercepter Il permet également de créer une connexion avec un réseau distant et de masque l’adresse IP de l’utilisateur           
+                </p>
+              </div>
+            </article>
+
+            <article class="duo-card">
+              <div class="duo-body">
+                <h2>OBJECTIFS PRINCIPAUX : </h2>
+                <ul class="duo-list">
+                  <li>Securisé les communication </li>
+                  <li>Protéger les donnée sensible  </li>
+                  <li>Garantir la confidentialité </li>
+                  <li>Permettre l’accès distant a un réseau </li>
+                  <li>Masquer l’adresse ip  </li>
+                  <li>Contourner certain restriction géographoque </li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="duo-card">
+              <div class="duo-body">
+                <h2>FONCTIONNEMENT </h2>
+                <img src="./assets/images/vpn1.png" alt="">
+                <p>
+                  1. L’utilisateur se connecte a un serveur vpn <br>
+                  2. Tunnel chiffré créée entre l’appareil et le serveur <br>
+                  3. Les données transmises sont sécurisées (données devenue illisible garce au chiffrement)
+                </p>
+                              </div>
+            </article>
+            
+
+            <article class="duo-card">
+              <div class="duo-body">
+                <h2>VPN grand public :</h2>
+                <p>Service d'abonnement pour accéder à un réseau mondial de serveurs VPN.</p>
+              <h3>Objectifs :</h3>
+              <p>Confidentialité, contourne les restrictions géographiques, sécurisation sur Wi-Fi publics.</p>
+              <h3>Logiciels :</h3>
+              <p>NordVPN, Proton VPN, ExpressVPN.</p>
+
+              </div>
+            </article>
+
+            <article class="duo-card">
+              <div class="duo-body">
+                <h2>VPN D’ENTREPRISE : </h2>
+                <p>Sécurise l'accès des employés à distance aux réseau interne de l'entreprise.</p>
+                <ul class="duo-list">
+                  <li>Client VPN spécifique ou intégré au système (ex: Cisco AnyConnect, FortiClient…)</li>
+                  <li>Configuration centralisée, authentification forte (MFA, certificats, Active Directory)</li>
+                  <li>Accès au réseau interne</li>
+                </ul>
+                <br><br>
+                <h3>Objectifs : </h3>
+                <p>Télétravail sécurisé, accès distant aux ressources internes, protection des données.</p>
+                <br>
+                <h3>Logiciel : </h3>
+                <p>Cisco AnyConnect, OpenVPN Access Server, FortiClient VPN.</p>
+              </div>
+            </article>
+
+
+            <article class="duo-card">
+              <div class="duo-body">
+                <h3>EXEMPLE DE SOLUTION VPN</h3>
+                <br>
+                <div class="example-table-wrap">
+                  <table class="example-table" aria-label="Tableau exemples VPN">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>POINT FORT</th>
+                        <th>POINT FAIBLE</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>NordVPN</td>
+                        <td>sécurité élevée et rapide</td>
+                        <td>payant</td>
+                      </tr>
+                      <tr>
+                        <td>ExpressVPN</td>
+                        <td>très performant</td>
+                        <td>prix élevé</td>
+                      </tr>
+                      <tr>
+                        <td>ProtonVPN</td>
+                        <td>respect de la vie privée</td>
+                        <td>accès gratuit limité</td>
+                      </tr>
+                      <tr>
+                        <td>Cisco AnyConnect</td>
+                        <td>très utilisé en entreprise</td>
+                        <td>configuration complexe</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </article>
+
+
+
+            <div class="veille-pair">
+              <article class="duo-card">
+                <div class="duo-body">
+                  <h3>Avantages</h3>
+                  <br>
+                  <ul class="duo-list">
+                    <li>Accès a distance</li>
+                    <li>Multiplateforme (mac, pc, android, iphone)</li>
+                    <li>Confidentialité (masque l’adresse ip)</li>
+                    <li>Sécurité des données (chiffrement information)</li>
+                    <li>Protection sur un réseau public</li>
+                    <li>Télétravail sécurisé</li>
+                    <li>Contournement de restrictions géographiques</li>
+                  </ul>
+                </div>
+              </article>
+
+              <article class="duo-card">
+                <div class="duo-body">
+                  <h3>Inconvénients</h3>
+                  <br>
+                  <ul class="duo-list">
+                    <li>Sentiment de sécurité (ne protège pas de toutes les attaques, ex: phising)</li>
+                    <li>Connexion internet ralentit</li>
+                    <li>Confiance envers le fournisseur de VPN</li>
+                    <li>Coût</li>
+                    <li>Blocage par certains sites</li>
+                  </ul>
+                </div>
+              </article>
+            </div>
+
+            <article class="duo-card">
+              <div class="duo-body">
+                <h3>Indispensable en entreprise :</h3>
+                <br>
+                <ul class="duo-list">
+                  <li>Permet plus de productivité</li>
+                  <li>Connecter salariés au réseau interne</li>
+                  <li>Travailler à distance</li>
+                  <li>Garantit la sécurité des données</li>
+                  <li>Contrôle les accès</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="duo-card">
+              <div class="duo-body">
+                <h2>Dans mon entreprise :</h2>
+                <p>Une solution VPN tel que Cisco AnyConnect est utilisé pour permettre au collaborateur d’accéder au réseau à distance.</p>
+              </div>
+            </article>
+
+
+            <article class="duo-card">
+              <div class="duo-body">
+                <h2>Evolution des VPN</h2>
+                <p>des nouvelles technologies comme WireGuard et les architectures Zero Trust qui montrent que les VPN évoluent vers des solutions plus rapides, intelligentes et sécurisées.</p>
+                <br>
+                <P>WireGuard est un protocole VPN récent conçu pour être : </P>
+                  <li>plus rapide</li>
+                  <li>plus simple</li>
+                  <li>plus sécurisé que les protocoles traditionnels</li>
+                <br><br>
+                <p>Les anciens protocoles VPN contiennent énormément de lignes de code ce qui : 
+                  <li>Complique la maintenance</li>
+                  <li>Augmentente les risques de vulnérabilités</li>
+                  <li>Réduit parfois les performances</li>
+                </p>
+              </div>
+            </article>
+
+
+            <div class="veille-pair">
+              <article class="duo-card">
+                <div class="duo-body">
+                  <h2>Les solutions Zero Trust</h2>
+                  <p>le modèle Zero Trust signifie : <br> "Ne jamais faire confiance automatiquement, toujours vérifier."</p>
+                  <p>Le système de contrôle :</p>
+                  <ul class="duo-list">
+                    <li>l'identité de l'utilisateur</li>
+                    <li>son mot de passe</li>
+                    <li>son appareil</li>
+                    <li>sa localisation</li>
+                    <li>son niveau d'autorisation</li>
+                  </ul>
+                </div>
+              </article>
+
+              <article class="duo-card zero-trust-image-card">
+                <div class="duo-body">
+                  <img src="assets/images/vpn2.png" alt="Schéma Zero Trust">
+                </div>
+              </article>
+            </div>
+
+
+          
+
+            <article class="duo-card">
+              <div class="duo-body">
+                <h2>L'intélligence artificielle dans les VPN</h2>
+                <p>L'IA est de plus en plus utilisée pour améliorer :</p>
+                <li>la cybersécurité</li>
+                <li>la détection d'attaques</li>
+              </div>
+            </article>
+
+            <article class="duo-card">
+              <div class="duo-body">
+                <h2>Détecttion des comportements suspects</h2>
+                <p>Les VPN modernes utilisent l'IA pour analyser :</p>
+                <li>les connexions inhabituelles</li>
+                <li>les changements de localisation</li>
+                <li>les volumes de données étranges</li>
+              </div>
+            </article>
+
+            <article class="duo-card">
+              <div class="duo-body">
+                <h3>Source : cnetfrance.fr francenum.gouv.fr kaspersky.fr</h3>
+              </div>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <!-- Modal compétences -->
+      <div class="modal" data-skill-modal aria-hidden="true">
+        <div class="modal-backdrop" data-skill-backdrop aria-hidden="true"></div>
+        <div class="modal-center">
+          <div class="modal-panel" role="dialog" aria-modal="true" aria-label="Détails compétence">
+            <div class="modal-head">
+              <h3 class="modal-title">
+                <span class="modal-icon" aria-hidden="true"><img data-skill-icon alt="" /></span>
+                <span data-skill-title>Compétence</span>
+              </h3>
+              <button class="modal-close" type="button" data-skill-close aria-label="Fermer">Fermer</button>
+            </div>
+            <div class="modal-body">
+              <p data-skill-desc></p>
+              <ul class="tags" data-skill-tags aria-label="Tags"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal contact -->
+      <div class="modal contact-modal" data-contact-modal aria-hidden="true">
+        <div class="modal-backdrop" data-contact-backdrop aria-hidden="true"></div>
+        <div class="modal-center">
+          <div class="modal-panel" role="dialog" aria-modal="true" aria-label="Formulaire de contact">
+            <div class="modal-head">
+              <h3 class="modal-title">Me contacter</h3>
+              <button class="modal-close" type="button" data-contact-close aria-label="Fermer">Fermer</button>
+            </div>
+
+            <form class="contact" data-contact-form>
+              <div class="contact-grid">
+                <div class="field">
+                  <label class="sr-only" for="prenom">Prénom</label>
+                  <input class="input" id="prenom" name="prenom" type="text" placeholder="Prénom" autocomplete="given-name" required />
+                </div>
+
+                <div class="field">
+                  <label class="sr-only" for="nom">Nom</label>
+                  <input class="input" id="nom" name="nom" type="text" placeholder="Nom" autocomplete="family-name" required />
+                </div>
+
+                <div class="field full">
+                  <label class="sr-only" for="mail">Mail</label>
+                  <input class="input" id="mail" name="mail" type="email" placeholder="Mail" autocomplete="email" required />
+                </div>
+
+                <div class="field full">
+                  <label class="sr-only" for="tel">Téléphone</label>
+                  <input class="input" id="tel" name="tel" type="tel" placeholder="Téléphone" autocomplete="tel" />
+                </div>
+
+                <div class="field full">
+                  <label class="sr-only" for="message">Message</label>
+                  <textarea class="textarea" id="message" name="message" placeholder="Message" required></textarea>
+                </div>
+              </div>
+
+              <div class="contact-actions">
+                <button class="btn btn-send" type="submit" aria-label="Envoyer le message">Envoyer</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer" aria-label="Pied de page">
+    <p class="muted">Copyright 2026 © Naelle MEZGHENNA</p>
+  </footer>
+</body>
+</html>
